@@ -146,18 +146,18 @@
 
     const newArrivalProducts = [
         { id: 101, name: '明日方舟-甜忆回响徽章', price: 18, category: '徽章', img: 'images/image0.png', stock: 200, sellerId: 1, desc:'明日方舟×大白兔奶糖联动'},
-        { id: 103, name: '帕姆展览馆系列亚克力挂件', price: 28, category: '亚克力', img: 'images/image1.png', stock: 120, sellerId: 1, desc:'老大思考.jpg'},
-        { id: 105, name: '群星邀约系列仿生胶片', price: 9.9, category: '纸片', img:'images/image2.png', stock: 500, sellerId: 2, desc:'人之怒pv柄图'},
-        { id: 107, name: '刃Q版摇摇乐摆件', price: 99, category: '手办', img: 'images/image3.png', stock: 30, sellerId: 3, desc:'敢坐刃的车吗？'},
-        { id: 109, name: 'Q版娃娃系列毛绒玩偶公仔', price: 99, category: '玩偶', img: 'images/image4.png', stock: 80, sellerId: 1, desc:'就这个小敌萌！'},
-        { id: 111, name: '角色套组-星语共愿', price: 65, category: '角色套组', img: 'images/image5.png', stock: 120, sellerId: 2, desc:'无息破局皮肤柄图'}
+        { id: 103, name: '崩铁-帕姆展览馆系列亚克力挂件', price: 28, category: '亚克力', img: 'images/image1.png', stock: 120, sellerId: 1, desc:'老大思考.jpg'},
+        { id: 105, name: '崩铁-群星邀约系列仿生胶片', price: 9.9, category: '纸片', img:'images/image2.png', stock: 500, sellerId: 2, desc:'人之怒pv柄图'},
+        { id: 107, name: '崩铁-刃Q版摇摇乐摆件', price: 99, category: '手办', img: 'images/image3.png', stock: 30, sellerId: 3, desc:'敢坐刃的车吗？'},
+        { id: 109, name: '崩铁-Q版娃娃系列毛绒玩偶公仔', price: 99, category: '玩偶', img: 'images/image4.png', stock: 80, sellerId: 1, desc:'就这个小敌萌！'},
+        { id: 111, name: '明日方舟-角色套组-星语共愿', price: 65, category: '角色套组', img: 'images/image5.png', stock: 120, sellerId: 2, desc:'无息破局皮肤柄图'}
     ];
     const recommendedProducts = [
         { id: 201, name: '明日方舟×三丽鸥家族-趴趴玩偶', price: 38, category: 'logos', img: 'images/image6.png', stock: 15, sellerId: 3, desc:'logos&酷企鹅dubble冷脸萌'},
-        { id: 203, name: '金属决策币-中不中', price: 20, category: '左乐', img: 'images/image7.png', stock: 8, sellerId: 1, desc:'河南小伙帮你决定！'},
-        { id: 205, name: '果味的夏天系列镭射票', price: 15, category: '万敌', img: 'images/image8.png', stock: 40, sellerId: 2, desc:'小敌的石榴汁分我一点~'},
-        { id: 207, name: '崩坏·星穹铁道Q版叠叠乐', price: 39.8, category: '刃', img: 'images/image9.png', stock: 18, sellerId: 3, desc:'我可以坐刃头上吗（'},
-        { id: 209, name: '光锥系列亚克力色纸', price: 48, category: '不死途', img: 'images/image10.png', stock: 60, sellerId: 1, desc:'一场谎言的终幕光锥柄图'}
+        { id: 203, name: '明日方舟-金属决策币-中不中', price: 20, category: '左乐', img: 'images/image7.png', stock: 8, sellerId: 1, desc:'河南小伙帮你决定！'},
+        { id: 205, name: '崩铁-果味的夏天系列镭射票', price: 15, category: '万敌', img: 'images/image8.png', stock: 40, sellerId: 2, desc:'小敌的石榴汁分我一点~'},
+        { id: 207, name: '崩铁-Q版叠叠乐', price: 39.8, category: '刃', img: 'images/image9.png', stock: 18, sellerId: 3, desc:'我可以坐刃头上吗（'},
+        { id: 209, name: '崩铁-光锥系列亚克力色纸', price: 48, category: '不死途', img: 'images/image10.png', stock: 60, sellerId: 1, desc:'一场谎言的终幕光锥柄图'}
     ];
     const allProductsMap = {};
     [...newArrivalProducts, ...recommendedProducts].forEach(p => { allProductsMap[p.id] = p; });
@@ -190,12 +190,21 @@
         if(category === 'all') return list;
         return list.filter(p => p.category === category);
     }
-    function getNewArrivalFiltered(){ return filterByCategory(newArrivalProducts, newArrivalCategory); }
-    function getRecommendedFiltered(){
-        let list = recommendedProducts;
-        if(globalSearchKeyword) list = list.filter(p => p.name.toLowerCase().includes(globalSearchKeyword.toLowerCase()));
-        return filterByCategory(list, recommendedCategory);
+    function getNewArrivalFiltered(){
+    let list = newArrivalProducts;
+    if(globalSearchKeyword) {
+        list = list.filter(p => p.name.toLowerCase().includes(globalSearchKeyword.toLowerCase()));
     }
+    return filterByCategory(list, newArrivalCategory);
+}
+
+function getRecommendedFiltered(){
+    let list = recommendedProducts;
+    if(globalSearchKeyword) {
+        list = list.filter(p => p.name.toLowerCase().includes(globalSearchKeyword.toLowerCase()));
+    }
+    return filterByCategory(list, recommendedCategory);
+}
 
     function renderGrid(containerId, productList, withEvents = true){
         const container = document.getElementById(containerId);
